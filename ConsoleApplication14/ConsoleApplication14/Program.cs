@@ -8,44 +8,36 @@ namespace ConsoleApplication14
 {
     struct City
     {
-      public  string Name;
-      public int People;
+        public string Name;
+        public int Populations;
     }
 
     class Program
     {
         static void Main(string[] args)
         {
-            City[] array=new City[3];
 
-            for (int i = 0; i < array.Length; i++)
+            List<City> cities = new List<City>();
+            string city = "Kharkiv=22222,Kiev=33333,Las Vegas=44444";            
+            string[] x = city.Split(',');
+
+            foreach (var item in x)
             {
-                array[i].Name = Console.ReadLine();
-                array[i].People = Convert.ToInt32(Console.ReadLine());
-
+                string[] ii = item.Split('=');
+                cities.Add(new City() { Name = x[0], Populations = int.Parse(x[1]) });
             }
 
-            int maxPeople=0;
+            int MaxIndex = 0;
+            int maxSizeOfIndex = 0;
 
-            for (int i = 0; i < array.Length; i++)
+            for (int i = 0; i < cities.Count; i++)
             {
-                if (maxPeople < array[i].People)
-                    maxPeople = array[i].People;
+                if (cities[i].Populations > cities[MaxIndex].Populations)
+                    MaxIndex = i;
+                if (cities[i].Name.Length > cities[maxSizeOfIndex].Name.Length)
+                    maxSizeOfIndex = i;
             }
-            Console.WriteLine(maxPeople);
-            int maxCity=0;
-            int index = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                if (maxCity> array[0].Name.Length)
-                {
-                    maxCity = array[i].Name.Length;
-                    index = i;
-                }
-            }
-
-            Console.WriteLine(array[index].Name);
-
+            Console.WriteLine($"{cities[maxSizeOfIndex]} - {cities[MaxIndex]}");
         }
     }
 }
